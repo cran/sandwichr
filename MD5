@@ -1,6 +1,6 @@
-b72d3bd2c9b5f4a53891ae2aea586527 *DESCRIPTION
+94a042e7520bb0ccd3bb351bf6cc3a88 *DESCRIPTION
 6c6f40244b034fe3c732b4b188d7f380 *NAMESPACE
-509e47bf23189ece5b7eda28631122b5 *NEWS.md
+6ed084d48f5e64ae9f9abf8677af6f3c *NEWS.md
 47e0b6bce324f9ee44d5fbfd3561db81 *R/autoplot.sandwich.r
 e7701d46e3f3615af8f9e7639ba52d43 *R/bc.data.r
 3a94b9b5991ef1f3a35854f16b8135b9 *R/hs.data.r
@@ -13,14 +13,14 @@ de03e8e90a62abfd1bbe013ada25a4b0 *R/sandwichr.r
 5bdf12cb35464a2b6915c79d854347db *R/ssh.data.shp.r
 6fe2002922b3bcdfab51a89a53e042af *R/ssh.data.txt.r
 9410c2d6d6005f4d6d54705410f02433 *R/ssh.test.r
-704433e0b5218109dc9ab2fd833f4331 *R/summary.sandwich.r
-6408a092cdecfd8b5f5e60ec050bc9c5 *README.md
+7040644d8f62280eeff768a7cdc5a24b *R/summary.sandwich.r
+9db3032b86dc4bc44a193904b84c1790 *README.md
 dae0b29e08ddcf496ca5d287ddf5229e *build/vignette.rds
 f977abc12ae1db1615af8c593389c3a1 *data/bc.data.RData
 ee41b62d5f44e3f8d60bf6ad08888da9 *data/hs.data.RData
-1abf96a1f3f5f612f96aab9cffa88eac *inst/doc/sandwichr.R.tutorial.R
-9efb165544d9c9ed9e2f5cedb6e31d16 *inst/doc/sandwichr.R.tutorial.Rmd
-376e62ee49fd4dfd39dce69d20bed94e *inst/doc/sandwichr.R.tutorial.html
+cafa0c1a5ee3d0bbcebb0486aab6f945 *inst/doc/sandwichr.R.tutorial.R
+67dd6e80b48acc93362d910eacc0c15d *inst/doc/sandwichr.R.tutorial.Rmd
+2ed7d1c7160e8bea99ec2d6be9b3f54a *inst/doc/sandwichr.R.tutorial.html
 ced53059f86811159195069428f321bf *inst/extdata/bc_reporting_ssh.csv
 d02c206ed77a8156c4fafb4403a169af *inst/extdata/bc_sampling_ssh.csv
 02d2433cbd8f6b42658e23d7c6775b55 *inst/extdata/hs.reporting.shapefile.dbf
@@ -69,4 +69,4 @@ cd159973c9830eb0b317617ebccb2ade *man/sandwich.model.Rd
 4009da9a18e2e06b4d764d611695fbb3 *vignettes/figs/unnamed-chunk-16-1.png
 e70d66297807315fb051783d92c04d0c *vignettes/figs/unnamed-chunk-9-1.png
 65a2333f89d178e90ec2113d3c86020d *vignettes/figs/unnamed-chunk-9-2.png
-9efb165544d9c9ed9e2f5cedb6e31d16 *vignettes/sandwichr.R.tutorial.Rmd
+67dd6e80b48acc93362d910eacc0c15d *vignettes/sandwichr.R.tutorial.Rmd

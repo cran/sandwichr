@@ -20,6 +20,8 @@ theory, which enables users to:
     confidence intervals;
   - Evaluate the overall accuracy using a diagnostic statistic called
     the k-fold cross validation estimate.
+    
+You may also find this package on CRAN: https://cran.r-project.org/web/packages/sandwichr/.
 
 ## Getting setup with R
 
@@ -43,12 +45,10 @@ detailed description of RStudio. It is free to download on
 
 Now you have the base R and a nice IDE installed on your computer, you
 can navigate to the console window (in RStudio, the bottom left panel)
-and install the `sandwichr` package from source code by executing the
-following lines of code:
+and install the `sandwichr` package by executing the following lines of code:
 
 ``` r
-require(devtools)
-install_github("linyuehzzz/sandwich_spatial_interpolator", subdir="r/sandwichr", build_vignettes = TRUE)
+install.packages("sandwichr")
 ```
 
 ## Tutorial
@@ -62,7 +62,7 @@ browseVignettes("sandwichr")
 ```
 
 A manual of the `sandwichr` package can be found
-[here](https://github.com/linyuehzzz/sandwich_spatial_interpolator/blob/master/r/sandwichr_1.0.0.pdf),
+[here](https://github.com/linyuehzzz/sandwich_spatial_interpolator/blob/master/r/sandwichr_1.0.1.pdf),
 which introduces all the available functions in this package.
 
 ## Citation
