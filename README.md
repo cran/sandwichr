@@ -6,13 +6,11 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-<!-- [![R-CMD-check](https://github.com/linyuehzzz/sandwich_spatial_interpolator/workflows/R-CMD-check/badge.svg)](https://github.com/linyuehzzz/sandwich_spatial_interpolator/actions) -->
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable/)
+<!-- [![R-CMD-check](https://github.com/linyuehzzz/sandwich_spatial_interpolator/workflows/R-CMD-check/badge.svg)](https://github.com/linyuehzzz/sandwich_spatial_interpolator/actions/) -->
 <!-- badges: end -->
 
-`sandwichr` is an R package for spatial interpolation based on the
-[spatial stratified heterogeneity (SSH)](http://www.geodetector.cn/)
-theory, which enables users to:
+`sandwichr` is an R package for spatial interpolation based on the spatial stratified heterogeneity (SSH) theory, which enables users to:
 
   - Interpolate the sampling attribute over the reporting units that
     does not rely on spatial autocorrelation;
@@ -37,9 +35,9 @@ R Archive Network.
 
 Once R is installed, you can proceed to install the RStudio Integrated
 Development Environment (IDE) to have a much improved environment to
-work with R. [Here](https://www.rstudio.com/products/rstudio/) is
+work with R. [Here](https://posit.co/products/open-source/rstudio/) is
 detailed description of RStudio. It is free to download on
-<https://www.rstudio.com/products/rstudio/download/#download>.
+<https://posit.co/download/rstudio-desktop/#download/>.
 
 ## Installing the package
 
@@ -61,9 +59,6 @@ You can find it using the argument:
 browseVignettes("sandwichr")
 ```
 
-A manual of the `sandwichr` package can be found
-[here](https://github.com/linyuehzzz/sandwich_spatial_interpolator/blob/master/r/sandwichr_1.0.1.pdf),
-which introduces all the available functions in this package.
 
 ## Citation
 
@@ -86,7 +81,7 @@ working on an article about this particular software.
 If there are any questions or suggestions (or anything else you want to
 talk about concerning this project), please feel free to let us know\!
 If you have found a bug, you can also file an
-[issue](https://github.com/linyuehzzz/sandwich_spatial_interpolator/issues).
+[issue](https://github.com/linyuehzzz/sandwich_spatial_interpolator/issues/).
 
 **Email**: lin.3326@osu.edu (Ms Yue Lin), xucd@lreis.ac.cn (Dr Chengdong
 Xu), wangjf@lreis.ac.cn (Dr Jinfeng Wang\*)
