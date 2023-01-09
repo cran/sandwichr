@@ -15,90 +15,79 @@ library(ape)
 
 ## -----------------------------------------------------------------------------
 # Input data from shapefiles
-hs.sampling.name <- system.file("extdata", "hs.sampling.shapefile.shp", 
+sim.sampling.name <- system.file("extdata", "sim.sampling.shp", 
                                 package="sandwichr")
-hs.ssh.name <- system.file("extdata", "hs.ssh.shapefile.shp", 
+sim.ssh.name <- system.file("extdata", "sim.ssh.shp", 
                            package="sandwichr")
-hs.reporting.name <- system.file("extdata", "hs.reporting.shapefile.shp", 
+sim.reporting.name <- system.file("extdata", "sim.reporting.shp", 
                                  package="sandwichr")
 
-hs.data <- load.data.shp(sampling.file=hs.sampling.name, 
-                      ssh.file=hs.ssh.name,
-                      reporting.file=hs.reporting.name)
+sim.data <- load.data.shp(sampling.file=sim.sampling.name, 
+                      ssh.file=sim.ssh.name,
+                      reporting.file=sim.reporting.name)
 
 # Sampling
-head(hs.data[[1]])
-class(hs.data[[1]])
-attributes(hs.data[[1]])
+head(sim.data[[1]])
+class(sim.data[[1]])
+attributes(sim.data[[1]])
 
-# SSH
-head(hs.data[[2]])
-class(hs.data[[2]])
-attributes(hs.data[[2]])
+# Stratification
+head(sim.data[[2]])
+class(sim.data[[2]])
+attributes(sim.data[[2]])
 
 # Reporting
-head(hs.data[[3]])
-class(hs.data[[3]])
-attributes(hs.data[[3]])
+head(sim.data[[3]])
+class(sim.data[[3]])
+attributes(sim.data[[3]])
 
 ## -----------------------------------------------------------------------------
-hs.dists <- as.matrix(dist(cbind(hs.data[[1]]$x, hs.data[[1]]$y)))
-hs.dists.inv <- 1/hs.dists
-diag(hs.dists.inv) <- 0
-Moran.I(hs.data[[1]]$Population, hs.dists.inv)
+sim.dists <- as.matrix(dist(cbind(sim.data[[1]]$Lon, sim.data[[1]]$Lat)))
+sim.dists.inv <- 1/sim.dists
+diag(sim.dists.inv) <- 0
+Moran.I(sim.data[[1]]$Value, sim.dists.inv)
 
 ## -----------------------------------------------------------------------------
-library(sf)
-library(tools)
-# Input another candidate SSH layer for demonstration
-hs.ssh2.name <- system.file("extdata", "hs.ssh2.shapefile.shp", 
-                            package="sandwichr")
-hs.ssh2 <- read_sf(dsn=dirname(hs.ssh2.name),
-                    layer=file_path_sans_ext(basename(hs.ssh2.name)))
-
-## -----------------------------------------------------------------------------
-# Prepare the SSH layer(s) for evaluation
-hs.join <- ssh.data.shp(object=hs.data[[1]], ssh.lyr=hs.data[[2]], ssh.id="STR_1")
-hs.join <- ssh.data.shp(object=hs.join, ssh.lyr=hs.ssh2, ssh.id="STR_2")
-head(hs.join)
+# Prepare the stratification layer(s) for evaluation
+sim.join <- ssh.data.shp(object=sim.data[[1]], ssh.lyr=sim.data[[2]], ssh.id="X")
+head(sim.join)
 
 ## -----------------------------------------------------------------------------
 # Calculate the geographical detector q-statistic
-ssh.test(object=hs.join, y="Population", x=c("STR_1", "STR_2"), test="factor")
+ssh.test(object=sim.join, y="Value", x=c("X"), test="factor")
 
 ## -----------------------------------------------------------------------------
-# Calculate the interaction detector
-ssh.test(object=hs.join, y="Population", x=c("STR_1", "STR_2"), test="interaction")
+p = ggerrorplot(sim.join, x = "X", y = "Value", 
+            desc_stat = "mean_sd", color = "black",
+            add = "violin", add.params = list(color = "darkgray")
+            )
+
+p + theme(axis.title.x = element_blank())
+
+sim.join %>%                                        
+  group_by(X) %>%                         
+  summarise_at(vars(Value),              
+               list(name = mean))
+
+sim.join %>%
+  group_by(X) %>%
+  summarise(mean=mean(Value), sd=sd(Value), n=n())
 
 ## -----------------------------------------------------------------------------
 # Perform the SSH based spatial interpolation
-hs.sw <- sandwich.model(object=hs.data, sampling.attr="Population", type="shp")
-head(hs.sw$object)
-summary(hs.sw)
+sim.sw <- sandwich.model(object=sim.data, sampling.attr="Value", type="shp")
+head(sim.sw$object)
+summary(sim.sw)
 
 ## ----fig.align="center", fig.width=8, fig.height=3----------------------------
 # Plot the estimated mean values and standard errors
-ggplot2::autoplot(object=hs.sw)
-
-## -----------------------------------------------------------------------------
-qqnorm(hs.data[[1]]$Population, pch=1, frame=FALSE)
-qqline(hs.data[[1]]$Population, col="steelblue", lwd=2)
-
-## -----------------------------------------------------------------------------
-# Calculate the confidence intervals of the interpolation estimates
-hs.sw.ci <- sandwich.ci(object=hs.sw, level=.95)
-head(hs.sw.ci$object$object)
-summary(hs.sw.ci)
-
-## ----fig.align="center", fig.width=8, fig.height=3----------------------------
-# Plot the confidence intervals of the interpolation estimates
-ggplot2::autoplot(object=hs.sw.ci)
+ggplot2::autoplot(object=sim.sw)
 
 ## -----------------------------------------------------------------------------
 # Perform k-fold cross validation
 set.seed(0)
-hs.cv <- sandwich.cv(object=hs.data, sampling.attr="Population", k=5, type="shp", ssh.id.col="STR_1")
-hs.cv
+sim.cv <- sandwich.cv(object=sim.data, sampling.attr="Value", k=5, type="shp", ssh.id.col="X")
+sim.cv
 
 ## -----------------------------------------------------------------------------
 # Input data from text files
@@ -110,11 +99,11 @@ bc.reporting_ssh.name <- system.file("extdata", "bc_reporting_ssh.csv",
 bc.data <- load.data.txt(sampling_ssh.file=bc.sampling_ssh.name, 
                          reporting_ssh.file=bc.reporting_ssh.name)
 
-# Sampling-SSH
+# Sampling-stratification
 head(bc.data[[1]])    
 class(bc.data[[1]])
 
-# Reporting-SSH
+# Reporting-stratification
 head(bc.data[[2]])    
 class(bc.data[[2]])
 
@@ -125,7 +114,7 @@ diag(bc.dists.inv) <- 0
 Moran.I(bc.data[[1]]$Incidence, bc.dists.inv)
 
 ## -----------------------------------------------------------------------------
-# Prepare the SSH layer for evaluation
+# Prepare the stratification layer for evaluation
 bc.join <- ssh.data.txt(object=bc.data)
 head(bc.join)
 
@@ -157,16 +146,6 @@ bc.sw <- sandwich.model(object=bc.data, sampling.attr="Incidence", type="txt",
                         ssh.id.col="SSHID", ssh.weights=list(c(1,2), c("W1","W2")))
 head(bc.sw$object)
 summary(bc.sw)
-
-## -----------------------------------------------------------------------------
-qqnorm(bc.data[[1]]$Incidence, pch=1, frame=FALSE)
-qqline(bc.data[[1]]$Incidence, col="steelblue", lwd=2)
-
-## -----------------------------------------------------------------------------
-# Calculate the confidence intervals of the interpolation estimates
-bc.sw.ci <- sandwich.ci(object=bc.sw, level=.95)
-head(bc.sw.ci$object$object)
-summary(bc.sw.ci)
 
 ## -----------------------------------------------------------------------------
 # Perform k-fold cross validation
