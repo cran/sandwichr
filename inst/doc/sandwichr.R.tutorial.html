@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2023-01-08" />
+<meta name="date" content="2023-04-26" />
 
 <title>A Tutorial for the sandwichr R Package</title>
 
@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">A Tutorial for the <code>sandwichr</code> R
 Package</h1>
-<h4 class="date">2023-01-08</h4>
+<h4 class="date">2023-04-26</h4>
 
 
 <div id="TOC">
@@ -371,7 +371,7 @@ mapping model</a></li>
 </ul>
 </div>
 
-<p>The <code>sandwichr</code> package performs spatial interpolation<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> based on
+<p>The <code>sandwichr</code> package performs spatial prediction<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> based on
 the spatial stratified heterogeneity (SSH) theory<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. Three inputs are
 required for this model: sampling, SSH, and reporting layers. By
 utilizing the known distribution of the population in the SSH layer,
@@ -396,7 +396,7 @@ it.</p>
 this package.</p>
 <div id="simulated-data" class="section level2">
 <h2>Simulated data</h2>
-<p>In the first case study, interpolation is performed on a simulated
+<p>In the first case study, prediction is performed on a simulated
 geospatial surface. The population data is organized as a 20*20 grid.
 This population is divided into four continuous strata. We generate 41
 sampling units at random within the grid. Based on the sample, we would
@@ -551,7 +551,7 @@ the simulated data.</p>
 </div>
 <div id="selection-of-the-stratification-layers" class="section level3">
 <h3>Selection of the stratification layer(s)</h3>
-<p>The accuracy of SSH-based spatial interpolation is determined by the
+<p>The accuracy of SSH-based spatial prediction is determined by the
 stratification layer. In an ideal stratification layer, values of the
 target attribute are expected to be homogeneous within each stratum and
 to differ between the strata. To determine a proper stratification layer
@@ -588,7 +588,7 @@ specified. In this example, the output of <code>ssh.test</code>
 (<em>q</em> = .81) implies that the candidate stratification layer has a
 high determinant power over the attribute. Therefore, it will be
 reasonable to select the stratification layer for subsequent
-interpolation.</p>
+prediction.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the geographical detector q-statistic</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh.test</span>(<span class="at">object=</span>sim.join, <span class="at">y=</span><span class="st">&quot;Value&quot;</span>, <span class="at">x=</span><span class="fu">c</span>(<span class="st">&quot;X&quot;</span>), <span class="at">test=</span><span class="st">&quot;factor&quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
@@ -641,7 +641,7 @@ each stratum.</p>
 <code>sandwich.model</code> function, which returns the mean value of
 the sampling attribute and its standard error for each reporting
 unit.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the SSH based spatial interpolation</span></span>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the SSH based spatial prediction</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>sim.sw <span class="ot">&lt;-</span> <span class="fu">sandwich.model</span>(<span class="at">object=</span>sim.data, <span class="at">sampling.attr=</span><span class="st">&quot;Value&quot;</span>, <span class="at">type=</span><span class="st">&quot;shp&quot;</span>)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sim.sw<span class="sc">$</span>object)</span></code></pre></div>
 <pre><code>## Simple feature collection with 6 features and 4 fields
@@ -780,7 +780,7 @@ example, the output of <code>ssh.test</code> implies a relatively high
 level of SSH in the distribution of breast cancer incidence concerning
 the given stratification (<em>q</em> = .52). Therefore, it is reasonable
 to select the urban-rural classification as the stratification layer for
-subsequent interpolation.</p>
+subsequent prediction.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the geographical detector q-statistic</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh.test</span>(<span class="at">object=</span>bc.join, <span class="at">y=</span><span class="st">&quot;Incidence&quot;</span>, <span class="at">x=</span><span class="st">&quot;SSHID&quot;</span>, <span class="at">test=</span><span class="st">&quot;factor&quot;</span>, <span class="at">type=</span><span class="st">&quot;txt&quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
@@ -820,7 +820,7 @@ breast cancer incidence in each stratum.</p>
 <code>sandwich.model</code> function, which outputs the mean value of
 the sampling attribute and its standard error for each reporting
 unit.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the SSH based spatial interpolation</span></span>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the SSH based spatial prediction</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>bc.sw <span class="ot">&lt;-</span> <span class="fu">sandwich.model</span>(<span class="at">object=</span>bc.data, <span class="at">sampling.attr=</span><span class="st">&quot;Incidence&quot;</span>, <span class="at">type=</span><span class="st">&quot;txt&quot;</span>, </span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ssh.id.col=</span><span class="st">&quot;SSHID&quot;</span>, <span class="at">ssh.weights=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>,<span class="st">&quot;W2&quot;</span>)))</span>
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bc.sw<span class="sc">$</span>object)</span></code></pre></div>
@@ -845,8 +845,8 @@ unit.</p>
 </div>
 <div id="model-validation-1" class="section level3">
 <h3>Model validation</h3>
-<p>To evaluate the overall accuracy of SSH-based spatial interpolation,
-a <em>k</em>-fold cross validation can be performed using the
+<p>To evaluate the overall accuracy of SSH-based spatial prediction, a
+<em>k</em>-fold cross validation can be performed using the
 <code>sandwich.cv</code> function. A diagnostic statistic called root
 mean square error (RMSE) will be calculated. Here, we present the result
 of a 5-fold cross validation.</p>

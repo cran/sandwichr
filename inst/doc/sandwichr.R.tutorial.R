@@ -74,7 +74,7 @@ sim.join %>%
   summarise(mean=mean(Value), sd=sd(Value), n=n())
 
 ## -----------------------------------------------------------------------------
-# Perform the SSH based spatial interpolation
+# Perform the SSH based spatial prediction
 sim.sw <- sandwich.model(object=sim.data, sampling.attr="Value", type="shp")
 head(sim.sw$object)
 summary(sim.sw)
@@ -141,7 +141,7 @@ bc.data[[1]] %>%
   summarise(mean=mean(Incidence), sd=sd(Incidence), n=n())
 
 ## -----------------------------------------------------------------------------
-# Perform the SSH based spatial interpolation
+# Perform the SSH based spatial prediction
 bc.sw <- sandwich.model(object=bc.data, sampling.attr="Incidence", type="txt", 
                         ssh.id.col="SSHID", ssh.weights=list(c(1,2), c("W1","W2")))
 head(bc.sw$object)
